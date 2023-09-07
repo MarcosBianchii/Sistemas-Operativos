@@ -54,7 +54,8 @@ dir_iter(char *substr, substr_t func, DIR *cur_dir, char *path)
 }
 
 int
-main(int argc, char *argv[]) {
+main(int argc, char *argv[])
+{
     if (argc < 2) {
         printf("Uso: %s [-i] <cadena>\n", argv[0]);
         return 1;
