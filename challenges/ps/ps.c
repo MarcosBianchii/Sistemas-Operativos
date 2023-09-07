@@ -61,7 +61,8 @@ proc_iter(DIR *proc)
     return closedir(proc);
 }
 
-int main()
+int
+main()
 {
     DIR *proc = opendir("/proc");
     return proc_iter(proc);
