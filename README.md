@@ -2,7 +2,7 @@
 
 * LAB(fork)
 
-  * `primes.c`: Calcula los numeros primos de `[2..=n]` y los imprime por pantalla utilizando `fork(2)` y `pipe(2)`.
+  * `primes.c`: Calcula los numeros primos de [2..=n] y los imprime por pantalla utilizando `fork(2)` y `pipe(2)`.
   * `xargs`: Implementación de la utilidad `xargs(1)` sencilla.
   <br>
 
