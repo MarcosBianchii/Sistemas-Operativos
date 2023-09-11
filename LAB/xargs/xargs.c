@@ -10,9 +10,9 @@
 #endif
 
 void
-args_free(char *argv[])
+args_free(char *argv[], size_t len)
 {
-	for (size_t i = 1; i < NARGS; i++) {
+	for (size_t i = 1; i < len; i++) {
 		free(argv[i]);
 		argv[i] = NULL;
 	}
@@ -22,17 +22,17 @@ int
 xargs(char *args[])
 {
 	ssize_t nread;
-	size_t n = 0, len = 0;
+	size_t n = 0, len = 1;
 	// Conseguir los argumentos de stdin hasta
 	// tener NARGS o hasta que se termine el input.
-	while (len < NARGS && (nread = getline(&args[len + 1], &n, stdin)) != -1) {
-		args[++len][n] = '\0';
+	while (len < 1 + NARGS && (nread = getline(&args[len], &n, stdin)) != -1) {
+		args[len++][nread] = '\0';
 		n = 0;
 	}
 
 	// Marcar el fin de los
 	// argumentos con NULL.
-	args[len + 1] = NULL;
+	args[len] = NULL;
 
 	// Crear un hijo que ejecute
 	// el programa con el
@@ -46,7 +46,7 @@ xargs(char *args[])
 	} else if (i > 0) {
 		// PADRE
 		wait(NULL);
-		args_free(args);
+		args_free(args, len);
 
 		// Correr el programa
 		// con los argumentos
@@ -57,7 +57,7 @@ xargs(char *args[])
 	} else {
 		// ERROR
 		perror("Error en fork");
-		args_free(args);
+		args_free(args, len);
 		return 1;
 	}
 
