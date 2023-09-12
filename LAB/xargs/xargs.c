@@ -40,12 +40,14 @@ xargs(char *args[])
 	pid_t i = fork();
 	if (i == 0) {
 		// HIJO
-		if (execvp(args[0], args) == -1)
+		if (execvp(args[0], args) == -1) {
 			perror("Error en execvp");
+			return 1;
+		}
 
 	} else if (i > 0) {
 		// PADRE
-		wait(NULL);
+		waitpid(i, NULL, 0);
 		args_free(args, len);
 
 		// Correr el programa
