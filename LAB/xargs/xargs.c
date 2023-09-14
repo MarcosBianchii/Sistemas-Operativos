@@ -3,18 +3,17 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <sys/wait.h>
-#include <string.h>
 
 #ifndef NARGS
 #define NARGS 4
 #endif
 
 void
-args_free(char *argv[], size_t len)
+args_free(char *args[], size_t len)
 {
 	for (size_t i = 1; i < len; i++) {
-		free(argv[i]);
-		argv[i] = NULL;
+		free(args[i]);
+		args[i] = NULL;
 	}
 }
 
@@ -74,8 +73,7 @@ main(int argc, char *argv[])
 		return 1;
 	}
 
-	char *args[NARGS + 2];
-	memset(args, 0, sizeof(args));
+	char *args[1 + NARGS + 1] = {0};
 	args[0] = argv[1];
 	return xargs(args);
 }
