@@ -52,9 +52,10 @@ primes(const int izq_read)
 		while (read(izq_read, &num, sizeof(num)) > 0)
 			if (num % primo != 0)
 				if (write(der_fds[1], &num, sizeof(num)) == -1) {
-					perror("Error escribirendo en pipe");
+					perror("Error escribiendo en pipe");
 					close(der_fds[1]);
 					close(izq_read);
+					wait(NULL);
 					return 1;
 				}
 
