@@ -137,6 +137,8 @@ main(int argc, char *argv[])
 	} else {
 		// ERROR
 		perror("Error en fork");
+		close(fds[0]);
+		close(fds[1]);
 		return 1;
 	}
 }
